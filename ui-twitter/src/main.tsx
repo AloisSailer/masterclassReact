@@ -9,6 +9,7 @@ import {
   FileText,
   User,
   DotsThreeCircle,
+  Sparkle,
 } from "phosphor-react"
 import "./components/global.css"
 
@@ -50,7 +51,24 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           Tweet
         </button>
       </aside>
-      <div className="content">Content</div>
+      <div className="content">
+        <main className="timeLine">
+          <div className="timeLine-header">
+            Home
+            <Sparkle />
+          </div>
+          <form className="new-tweet-form">
+            <label htmlFor="tweet">
+              <img
+                src="https://github.com/aloissailer.png"
+                alt="Foto Alois Sailer"
+              />
+              <textarea id="tweet" placeholder="What's happening?" />
+            </label>
+            <button type="submit">Tweet</button>
+          </form>
+        </main>
+      </div>
     </div>
   </React.StrictMode>
 )
