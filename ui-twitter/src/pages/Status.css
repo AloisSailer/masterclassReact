@@ -70,7 +70,7 @@
     display: block;
   }
 
-  .answer-tweet-form button[type="submit"] svg {
+  .answer-tweet-form button[type="submit"] span {
     display: none;
   }
 }
