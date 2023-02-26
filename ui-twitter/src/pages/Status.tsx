@@ -1,26 +1,52 @@
+import { PaperPlaneRight } from "phosphor-react"
+import { FormEvent, KeyboardEvent, useState } from "react"
 import { Header } from "../components/Header"
 import { Separator } from "../components/Separator"
 import { Tweet } from "../components/Tweet"
 
 import "./Status.css"
 
-const answers = ["Concordo...", "Olha, faz sentido!", "Parabéns pelo progresso"]
-
 export function Status() {
+  const [newAnswer, setNewAnswer] = useState("")
+  const [answers, setAnswers] = useState(["Respondendo"])
+  function createNewAnswer(event: FormEvent) {
+    event.preventDefault()
+    setAnswers([newAnswer, ...answers])
+    setNewAnswer("")
+  }
+
+  function handleHotkeySubmit(event: KeyboardEvent) {
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      setAnswers([newAnswer, ...answers])
+      setNewAnswer("")
+    }
+  }
+
   return (
     <main className="Tweet">
       <Header title="Tweet" />
       <Tweet content="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus, ut corrupti. Tempore ipsum odit provident hic eveniet, autem recusandae adipisci cumque sit quia, a ducimus ipsam ab reprehenderit beatae quidem!" />
       <Separator />
-      <form className="answer-tweet-form">
+      <form onSubmit={createNewAnswer} className="answer-tweet-form">
         <label htmlFor="tweet">
           <img
             src="https://github.com/aloissailer.png"
             alt="Foto Alois Sailer"
           />
-          <textarea id="tweet" placeholder="Tweet your answer" />
+          <textarea
+            id="tweet"
+            placeholder="Tweet your answer"
+            value={newAnswer}
+            onKeyDown={handleHotkeySubmit}
+            onChange={(event) => {
+              setNewAnswer(event?.target.value)
+            }}
+          />
         </label>
-        <button type="submit">Answer</button>
+        <button type="submit">
+          <PaperPlaneRight />
+          <span>Answer</span>
+        </button>
       </form>
       {answers.map((answer) => {
         return <Tweet key={answer} content={answer} />
